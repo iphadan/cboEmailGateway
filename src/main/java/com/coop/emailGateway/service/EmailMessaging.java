@@ -28,7 +28,24 @@ private  String mailAddress;
 
 
             String formattedDateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+            if(emailSend.getEmail().isEmpty()){
+                System.out.println("❌ Failed to create email.");
+                return new ResponseEntity<>(new EmailResponse(true, "Mail Address is not provided. Sending Mail Failed."), HttpStatus.EXPECTATION_FAILED);
+            }
+            if(emailSend.getBody().isEmpty()){
+                System.out.println("❌ Failed to create email.");
+                return new ResponseEntity<>(new EmailResponse(true, "Mail Body is not provided. Sending Mail Failed."), HttpStatus.EXPECTATION_FAILED);
+            }
+            if(emailSend.getName().isEmpty()){
+                emailSend.setName("Our Valued Customer");
+            }
+            if(emailSend.getSubject().isEmpty()){
+                emailSend.setSubject("Notification from Coop");
+            }
+            if(emailSend.getHeader().isEmpty()){
+                emailSend.setHeader("Notification from Coop");
 
+            }
             // HTML body
             String htmlBody =
                     "<!DOCTYPE html>" +
@@ -85,6 +102,8 @@ private  String mailAddress;
                             "</body>" +
                             "</html>";
 
+
+
             // Create the message (no attachment for now)
             MimeMessage message = EmailService.createMimeMessage(mailAddress, emailSend.getEmail(), emailSend.getSubject(), htmlBody, null);
 
@@ -94,8 +113,9 @@ private  String mailAddress;
 
             } else {
                 System.out.println("❌ Failed to create email.");
-                return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to + " + emailSend.getEmail() + " Failed. Due to empty message"), HttpStatus.EXPECTATION_FAILED);
+                return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to + " + emailSend.getEmail() + " Failed."), HttpStatus.EXPECTATION_FAILED);
             }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +133,24 @@ private  String mailAddress;
 
 
             String formattedDateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+            if(emailSend.getEmail().isEmpty()){
+                System.out.println("❌ Failed to create email.");
+                throw new Exception("Mail Address is not provided");
+            }
+            if(emailSend.getBody().isEmpty()){
+                System.out.println("❌ Failed to create email.");
+                throw new Exception("Mail Body is not provided");
+            }
+            if(emailSend.getName().isEmpty()){
+                emailSend.setName("Our Valued Customer");
+            }
+            if(emailSend.getSubject().isEmpty()){
+                emailSend.setSubject("Notification from Coop");
+            }
+            if(emailSend.getHeader().isEmpty()){
+                emailSend.setHeader("Notification from Coop");
 
+            }
             // HTML body
             String htmlBody =
                     "<!DOCTYPE html>" +
