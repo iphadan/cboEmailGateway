@@ -30,11 +30,10 @@ private  String mailAddress;
             String formattedDateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
 
             // HTML body
-            String htmlBody = "Hey";
-
+            String htmlBody = "";
 
             // Create the message (no attachment for now)
-            MimeMessage message = EmailService.createMimeMessage(mailAddress, emailSend.getSubject(), htmlBody, null);
+            MimeMessage message = EmailService.createMimeMessage(mailAddress, emailSend.getEmail(),emailSend.getSubject(), htmlBody, null);
 
             if (message != null) {
                 Transport.send(message);

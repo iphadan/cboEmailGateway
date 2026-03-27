@@ -8,15 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Controller("/mail/api")
+//@Controller("/mail/api")
 public class EmailSenderController {
     @Autowired
 private EmailMessaging emailMessaging;
-@PostMapping
-    public void sendEmail(EmailSend emailSend) throws JsonProcessingException {
+@PostMapping("/send")
+    public void sendEmail(@RequestBody EmailSend emailSend) throws JsonProcessingException {
     emailMessaging.sendNotification(emailSend);
 
 

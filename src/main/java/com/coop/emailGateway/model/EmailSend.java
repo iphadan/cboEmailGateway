@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 public class EmailSend {
     private String name;
     private String header;
-    private String Email;
-    private String Subject;
+    private String email;
+    private String subject;
     private String body;
 
 

@@ -41,14 +41,13 @@ public class EmailService {
     }
 
 
-    public static MimeMessage createMimeMessage(String sender, String subject, String body, String attachmentPath) throws AddressException {
+    public static MimeMessage createMimeMessage(String sender,String email, String subject, String body, String attachmentPath) throws AddressException {
        String[] recipients = staffMailAddresses.split(",");
    //    String[] recipients = {"ephrem.daniel@coopbankoromiasc.com"};
 
-        InternetAddress[] addresses = new InternetAddress[recipients.length];
-        for (int i = 0; i < recipients.length; i++) {
-            addresses[i] = new InternetAddress(recipients[i]);
-        }
+        InternetAddress address = new InternetAddress();
+        address.setAddress(email);
+
 
         try {
             Properties properties = new Properties();
@@ -66,7 +65,7 @@ public class EmailService {
 
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(sender));
-            message.setRecipients(Message.RecipientType.TO,addresses);
+            message.setRecipient(Message.RecipientType.TO,address);
             message.setSubject(subject);
 
             // HTML body
