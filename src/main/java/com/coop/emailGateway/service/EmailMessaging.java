@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
 
 @Service
 @Slf4j
@@ -112,12 +116,50 @@ private  String mailAddress;
                 System.out.println("✅ Report email sent successfully!");
 
             } else {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs"+
+                        LocalDate.now() +".txt", true))) {
+                    writer.write("#");
+                    writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  + LocalDate.now());
+                    writer.newLine();
+                    writer.write(emailSend.getEmail());
+                    writer.newLine();
+                    writer.write(emailSend.getBody());
+                    writer.newLine();
+                    writer.write(emailSend.getSubject());
+                    writer.newLine();
+                    writer.write(emailSend.getHeader());
+                    writer.newLine();
+                    writer.write(emailSend.getName());
+                    writer.write("#");
+                    writer.newLine();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println("❌ Failed to create email.");
                 return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to + " + emailSend.getEmail() + " Failed."), HttpStatus.EXPECTATION_FAILED);
             }
 
 
         } catch (Exception e) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs"+
+                    LocalDate.now() +".txt", true))) {
+                writer.write("#");
+                writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  + LocalDate.now());
+                writer.newLine();
+                writer.write(emailSend.getEmail());
+                writer.newLine();
+                writer.write(emailSend.getBody());
+                writer.newLine();
+                writer.write(emailSend.getSubject());
+                writer.newLine();
+                writer.write(emailSend.getHeader());
+                writer.newLine();
+                writer.write(emailSend.getName());
+                writer.write("#");
+                writer.newLine();
+            } catch (IOException io) {
+                throw new RuntimeException(io);
+            }
             e.printStackTrace();
             return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to + " + emailSend.getEmail() + " Failed"), HttpStatus.EXPECTATION_FAILED);
 
@@ -214,6 +256,25 @@ private  String mailAddress;
                 Transport.send(message);
                 System.out.println("✅ Report email sent successfully!");
             } else {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs"+
+                        LocalDate.now() +".txt", true))) {
+                    writer.write("#");
+                    writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  + LocalDate.now());
+                    writer.newLine();
+                    writer.write(emailSend.getEmail());
+                    writer.newLine();
+                    writer.write(emailSend.getBody());
+                    writer.newLine();
+                    writer.write(emailSend.getSubject());
+                    writer.newLine();
+                    writer.write(emailSend.getHeader());
+                    writer.newLine();
+                    writer.write(emailSend.getName());
+                    writer.write("#");
+                    writer.newLine();
+                } catch (IOException io) {
+                    throw new RuntimeException(io);
+                }
                 System.out.println("❌ Failed to create email.");
             }
 
