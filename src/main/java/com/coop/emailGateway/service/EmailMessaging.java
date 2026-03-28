@@ -21,6 +21,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @Slf4j
@@ -36,11 +37,11 @@ private  String mailAddress;
             String formattedDateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
             if(emailSend.getEmail().isEmpty() ){
                 System.out.println("❌ Failed to create email.");
-                return new ResponseEntity<>(new EmailResponse(true, "Mail Address is not provided. Sending Mail Failed."), HttpStatus.EXPECTATION_FAILED);
+                return new ResponseEntity<>(new EmailResponse(false, "Mail Address is not provided. Sending Mail Failed."), HttpStatus.EXPECTATION_FAILED);
             }
             if(emailSend.getBody().isEmpty()){
                 System.out.println("❌ Failed to create email.");
-                return new ResponseEntity<>(new EmailResponse(true, "Mail Body is not provided. Sending Mail Failed."), HttpStatus.EXPECTATION_FAILED);
+                return new ResponseEntity<>(new EmailResponse(false, "Mail Body is not provided. Sending Mail Failed."), HttpStatus.EXPECTATION_FAILED);
             }
             if(emailSend.getName().isEmpty()){
                 emailSend.setName("Our Valued Customer");
@@ -121,9 +122,9 @@ private  String mailAddress;
             } else {
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs-"+
                         LocalDate.now() +".txt", true))) {
-                    writer.write("@"+ LocalDate.now());
+                    writer.write("@"+ LocalDateTime.now()+ " Error.Occurred");
                     writer.newLine();
-                    writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  );
+                    writer.write("Sending Mail to " + emailSend.getEmail() + " Failed"  );
                     writer.newLine();
                     writer.write(emailSend.getEmail());
                     writer.newLine();
@@ -141,16 +142,16 @@ private  String mailAddress;
                     throw new RuntimeException(e);
                 }
                 System.out.println("❌ Failed to create email.");
-                return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to  " + emailSend.getEmail() + " Failed."), HttpStatus.EXPECTATION_FAILED);
+                return new ResponseEntity<>(new EmailResponse(false, "Sending Mail to  " + emailSend.getEmail() + " Failed."), HttpStatus.EXPECTATION_FAILED);
             }
 
 
         } catch (Exception e) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs-"+
                     LocalDate.now() +".txt", true))) {
-                writer.write("@"+ LocalDate.now());
+                writer.write("@"+ LocalDateTime.now()+ " Error.Occurred");
                 writer.newLine();
-                writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  );
+                writer.write("Sending Mail to " + emailSend.getEmail() + " Failed"  );
                 writer.newLine();
                 writer.write(emailSend.getEmail());
                 writer.newLine();
@@ -168,7 +169,7 @@ private  String mailAddress;
                 throw new RuntimeException(io);
             }
             e.printStackTrace();
-            return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to " + emailSend.getEmail() + " Failed"), HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>(new EmailResponse(false, "Sending Mail to " + emailSend.getEmail() + " Failed"), HttpStatus.EXPECTATION_FAILED);
 
 
         }
@@ -265,9 +266,9 @@ private  String mailAddress;
             } else {
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs-"+
                         LocalDate.now() +".txt", true))) {
-                    writer.write("@"+ LocalDate.now());
+                    writer.write("@"+ LocalDateTime.now() + " Error.Occurred");
                     writer.newLine();
-                    writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  );
+                    writer.write("Sending Mail to " + emailSend.getEmail() + " Failed"  );
                     writer.newLine();
                     writer.write(emailSend.getEmail());
                     writer.newLine();
