@@ -28,7 +28,7 @@ private  String mailAddress;
 
 
             String formattedDateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
-            if(emailSend.getEmail().isEmpty()){
+            if(emailSend.getEmail().isEmpty() ){
                 System.out.println("❌ Failed to create email.");
                 return new ResponseEntity<>(new EmailResponse(true, "Mail Address is not provided. Sending Mail Failed."), HttpStatus.EXPECTATION_FAILED);
             }
@@ -113,13 +113,13 @@ private  String mailAddress;
 
             } else {
                 System.out.println("❌ Failed to create email.");
-                return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to + " + emailSend.getEmail() + " Failed."), HttpStatus.EXPECTATION_FAILED);
+                return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to  " + emailSend.getEmail() + " Failed."), HttpStatus.EXPECTATION_FAILED);
             }
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to + " + emailSend.getEmail() + " Failed"), HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>(new EmailResponse(true, "Sending Mail to " + emailSend.getEmail() + " Failed"), HttpStatus.EXPECTATION_FAILED);
 
 
         }
