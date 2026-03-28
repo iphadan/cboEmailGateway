@@ -35,21 +35,21 @@ private  String mailAddress;
 
         try {
             String formattedDateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
-            if(emailSend.getEmail().isEmpty() ){
+            if(emailSend.getEmail() == null || emailSend.getEmail().isEmpty() ){
                 System.out.println("❌ Failed to create email.");
                 return new ResponseEntity<>(new EmailResponse(false, "Mail Address is not provided. Sending Mail Failed."), HttpStatus.EXPECTATION_FAILED);
             }
-            if(emailSend.getBody().isEmpty()){
+            if(emailSend.getBody() == null || emailSend.getBody().isEmpty()){
                 System.out.println("❌ Failed to create email.");
                 return new ResponseEntity<>(new EmailResponse(false, "Mail Body is not provided. Sending Mail Failed."), HttpStatus.EXPECTATION_FAILED);
             }
-            if(emailSend.getName().isEmpty()){
+            if(emailSend.getName() == null || emailSend.getName().isEmpty()){
                 emailSend.setName("Our Valued Customer");
             }
-            if(emailSend.getSubject().isEmpty()){
+            if(emailSend.getSubject() == null || emailSend.getSubject().isEmpty()){
                 emailSend.setSubject("Notification from Coop");
             }
-            if(emailSend.getHeader().isEmpty()){
+            if(emailSend.getHeader() == null || emailSend.getHeader().isEmpty()){
                 emailSend.setHeader("Notification from Coop");
 
             }
@@ -130,11 +130,11 @@ private  String mailAddress;
                     writer.newLine();
                     writer.write(emailSend.getBody());
                     writer.newLine();
-                    writer.write(emailSend.getSubject() == null ? "Not Provided":emailSend.getSubject());
+                    writer.write(emailSend.getSubject() == null || emailSend.getSubject().isEmpty() ? "Not Provided":emailSend.getSubject());
                     writer.newLine();
-                    writer.write(emailSend.getHeader() == null ? "Not Provided":emailSend.getHeader());
+                    writer.write(emailSend.getHeader() == null || emailSend.getHeader().isEmpty() ? "Not Provided":emailSend.getHeader());
                     writer.newLine();
-                    writer.write(emailSend.getName() == null ? "Not Provided":emailSend.getName());
+                    writer.write(emailSend.getName() == null || emailSend.getName().isEmpty()? "Not Provided":emailSend.getName());
                     writer.newLine();
                     writer.write("#");
                     writer.newLine();
@@ -157,11 +157,11 @@ private  String mailAddress;
                 writer.newLine();
                 writer.write(emailSend.getBody());
                 writer.newLine();
-                writer.write(emailSend.getSubject() == null ? "Not Provided":emailSend.getSubject());
+                writer.write(emailSend.getSubject() == null || emailSend.getSubject().isEmpty() ? "Not Provided":emailSend.getSubject());
                 writer.newLine();
-                writer.write(emailSend.getHeader() == null ? "Not Provided":emailSend.getHeader());
+                writer.write(emailSend.getHeader() == null || emailSend.getHeader().isEmpty()? "Not Provided":emailSend.getHeader());
                 writer.newLine();
-                writer.write(emailSend.getName() == null ? "Not Provided":emailSend.getName());
+                writer.write(emailSend.getName() == null || emailSend.getName().isEmpty()? "Not Provided":emailSend.getName());
                 writer.newLine();
                 writer.write("#");
                 writer.newLine();
@@ -183,21 +183,21 @@ private  String mailAddress;
 
 
             String formattedDateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
-            if(emailSend.getEmail().isEmpty()){
+            if(emailSend.getEmail() == null || emailSend.getEmail().isEmpty()){
                 System.out.println("❌ Failed to create email.");
                 throw new Exception("Mail Address is not provided");
             }
-            if(emailSend.getBody().isEmpty()){
+            if(emailSend.getBody() == null || emailSend.getBody().isEmpty()){
                 System.out.println("❌ Failed to create email.");
                 throw new Exception("Mail Body is not provided");
             }
-            if(emailSend.getName().isEmpty()){
+            if(emailSend.getName() == null || emailSend.getName().isEmpty()){
                 emailSend.setName("Our Valued Customer");
             }
-            if(emailSend.getSubject().isEmpty()){
+            if(emailSend.getSubject() == null || emailSend.getSubject().isEmpty()){
                 emailSend.setSubject("Notification from Coop");
             }
-            if(emailSend.getHeader().isEmpty()){
+            if(emailSend.getHeader() == null || emailSend.getHeader().isEmpty()){
                 emailSend.setHeader("Notification from Coop");
 
             }
@@ -215,9 +215,12 @@ private  String mailAddress;
                             "    <!-- Header with Logo -->" +
                             "    <div style='text-align:center; margin-bottom:20px;'>" +
                             "      <img src='https://coopbankoromia.com.et/wp-content/uploads/2020/11/Coopbank-Logo-Ethiopia.svg' alt='Coop Bank Logo' style='height:60px;' />" +
-                            "      <h2 style='color:#2FADDA; margin:10px 0; font-weight:bold;'>" +
+                            "      <h1 style='color:#2FADDA; margin:10px 0; font-weight:bold;'>"
+                            +"Bank Smarter, Live Better."
+                               +"</h1>" +
+                            "      <h3 style='color:#2FADDA; margin:10px 0; font-weight:bold;'>" +
                             emailSend.getHeader() +
-                            "      </h2>" +
+                            "      </h3>" +
                             "    </div>" +
 
                             "    <!-- Greeting -->" +
@@ -274,11 +277,11 @@ private  String mailAddress;
                     writer.newLine();
                     writer.write(emailSend.getBody());
                     writer.newLine();
-                    writer.write(emailSend.getSubject() == null ? "Not Provided":emailSend.getSubject());
+                    writer.write(emailSend.getSubject() == null || emailSend.getSubject().isEmpty()? "Not Provided":emailSend.getSubject());
                     writer.newLine();
-                    writer.write(emailSend.getHeader() == null ? "Not Provided":emailSend.getHeader());
+                    writer.write(emailSend.getHeader() == null || emailSend.getHeader().isEmpty()? "Not Provided":emailSend.getHeader());
                     writer.newLine();
-                    writer.write(emailSend.getName() == null ? "Not Provided":emailSend.getName());
+                    writer.write(emailSend.getName() == null || emailSend.getName().isEmpty()? "Not Provided":emailSend.getName());
                     writer.newLine();
                     writer.write("#");
                     writer.newLine();
