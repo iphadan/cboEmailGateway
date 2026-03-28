@@ -1,11 +1,13 @@
 package com.coop.emailGateway.service;
 
+import com.coop.emailGateway.configurations.LogsDirectoryInitializer;
 import com.coop.emailGateway.model.EmailResponse;
 import com.coop.emailGateway.model.EmailSend;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +28,11 @@ public class EmailMessaging {
 
 @Value("${queue.mail.address}")
 private  String mailAddress;
+
     @Async
     public ResponseEntity<EmailResponse> sendEmailAndSendResponse(EmailSend emailSend) throws JsonProcessingException {
+
         try {
-
-
             String formattedDateTime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
             if(emailSend.getEmail().isEmpty() ){
                 System.out.println("❌ Failed to create email.");
@@ -113,13 +115,15 @@ private  String mailAddress;
 
             if (message != null) {
                 Transport.send(message);
+
                 System.out.println("✅ Report email sent successfully!");
 
             } else {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs"+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs-"+
                         LocalDate.now() +".txt", true))) {
-                    writer.write("#");
-                    writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  + LocalDate.now());
+                    writer.write("@"+ LocalDate.now());
+                    writer.newLine();
+                    writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  );
                     writer.newLine();
                     writer.write(emailSend.getEmail());
                     writer.newLine();
@@ -130,6 +134,7 @@ private  String mailAddress;
                     writer.write(emailSend.getHeader());
                     writer.newLine();
                     writer.write(emailSend.getName());
+                    writer.newLine();
                     writer.write("#");
                     writer.newLine();
                 } catch (IOException e) {
@@ -141,10 +146,11 @@ private  String mailAddress;
 
 
         } catch (Exception e) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs"+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs-"+
                     LocalDate.now() +".txt", true))) {
-                writer.write("#");
-                writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  + LocalDate.now());
+                writer.write("@"+ LocalDate.now());
+                writer.newLine();
+                writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  );
                 writer.newLine();
                 writer.write(emailSend.getEmail());
                 writer.newLine();
@@ -155,6 +161,7 @@ private  String mailAddress;
                 writer.write(emailSend.getHeader());
                 writer.newLine();
                 writer.write(emailSend.getName());
+                writer.newLine();
                 writer.write("#");
                 writer.newLine();
             } catch (IOException io) {
@@ -256,10 +263,11 @@ private  String mailAddress;
                 Transport.send(message);
                 System.out.println("✅ Report email sent successfully!");
             } else {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs"+
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("logs/logs-"+
                         LocalDate.now() +".txt", true))) {
-                    writer.write("#");
-                    writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  + LocalDate.now());
+                    writer.write("@"+ LocalDate.now());
+                    writer.newLine();
+                    writer.write("Sending Mail to " + emailSend.getEmail() + "Failed"  );
                     writer.newLine();
                     writer.write(emailSend.getEmail());
                     writer.newLine();
@@ -270,6 +278,7 @@ private  String mailAddress;
                     writer.write(emailSend.getHeader());
                     writer.newLine();
                     writer.write(emailSend.getName());
+                    writer.newLine();
                     writer.write("#");
                     writer.newLine();
                 } catch (IOException io) {
